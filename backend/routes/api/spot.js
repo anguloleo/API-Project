@@ -1,6 +1,6 @@
 const express = require("express");
-const router = express.Router(); // this is the router object
-const { setTokenCookie, requireAuth } = require("../../utils/auth.js");
+const router = express.Router(); 
+const { requireAuth } = require("../../utils/auth.js");
 
 const {
   User,
@@ -112,6 +112,7 @@ const ValidateQueryFilters = [
 
 //get all spots
 router.get("/", ValidateQueryFilters, async (req, res) => {
+  
   try {
     const { page = 1, size = 20, minPrice, maxPrice, state, city } = req.query;
     let limit = parseInt(size);
@@ -122,6 +123,7 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
     if (maxPrice) where.price = { ...where.price, [Op.lte]: parseFloat(maxPrice) };
     if (city) where.city = city;
     if (state) where.state = state;
+    
     const spots = await Spot.findAll({
       where,
       limit,
