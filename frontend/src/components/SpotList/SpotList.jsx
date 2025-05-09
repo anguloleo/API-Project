@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { renderMatches } from 'react-router-dom';
 import { fetchSpots } from '../../store/spotReducer';
 import './SpotList.css';
 
 
 
 const SpotList = () => {
-
     const dispatch = useDispatch();
     const spotsObj = useSelector(state=>state.spotState.entries);
     const spots = Object.values(spotsObj);
@@ -17,18 +15,25 @@ const SpotList = () => {
             dispatch(fetchSpots());
         }, [dispatch]);
 
+
         return (
-//fix here
-            <div>
-            <img src={spotImages.url} alt={spots.name}/>
-            <p>{spots.city}, {spots.state}, {reviews.start}</p> 
-            <p>{spots.price} night</p>
-        </div>
-
-        )
-
-    
-}
+            <div className='spot-list-container'>
+                <h2>LodgR</h2>
+                <div className='grid'>
+                    {spots.map(({ id, city, state, price, previewImage, avgStarRating }) => (
+                        <div className='card' key={id}>
+                            <img src={previewImage} className='preview-image' alt={`Preview of spot in ${city}, ${state}`}/>
+                            <div className='card-info'>
+                                <h3>{city}, {state}</h3>
+                                <p>${price} night</p>
+                                <p>{avgStarRating}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+};
 
 
 export default SpotList;

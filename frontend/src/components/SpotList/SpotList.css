@@ -1,0 +1,40 @@
+.spot-list-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.preview-image {
+    width: 100%; 
+    height: 200px;
+    object-fit: cover;
+    margin: 10px 0;
+}
+
+.card-info {
+    padding: 10px;
+}
+.card-info h3 {
+    font-size: 18px;
+    margin: 5px, 0;
+}
+.card-info p {
+  font-size: 14px;
+  color: #555;
+}
+.card-info p:last-child {
+  font-weight: bold;
+}
