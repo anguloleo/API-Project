@@ -6,6 +6,8 @@ if (process.env.NODE_ENV === 'production') {
  options.schema = process.env.SCHEMA; 
 }
 
+options.tableName = 'SpotImages';
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     await SpotImage.bulkCreate( [
@@ -30,11 +32,10 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date(),
     },
-  ]);
+  ], { ...options });
   },
 
     async down (queryInterface, Sequelize) {
-    options.tableName = 'SpotImages';
     return queryInterface.bulkDelete(options, null, {});
   }
 };

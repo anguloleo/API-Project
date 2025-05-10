@@ -7,6 +7,8 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  
 }
 
+options.tableName = 'Bookings';
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     await Booking.bulkCreate([
@@ -28,12 +30,10 @@ module.exports = {
         startDate: '2025-10-15',
         endDate: '2025-10-17',
       },
-    ], { validate: true });
+    ], { ...options, validate: true });
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'Bookings';
-    
     return queryInterface.bulkDelete(options, null, {});
   }
 };

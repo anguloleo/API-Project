@@ -4,10 +4,11 @@ const { Review } = require("../models")
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
- options.schema = process.env.SCHEMA; // define your schema in options object
+ options.schema = process.env.SCHEMA; 
 }
 
-/** @type {import('sequelize-cli').Migration} */
+options.tableName = 'Reviews';
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     await Review.bulkCreate( [
@@ -43,10 +44,10 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-    ]);
+    ], { ...options });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Reviews", null, {});
+    return queryInterface.bulkDelete(options, null, {});
   },
 };
