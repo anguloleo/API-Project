@@ -1,15 +1,7 @@
 const express = require("express");
 const router = express.Router(); 
 const { requireAuth } = require("../../utils/auth.js");
-
-const {
-  User,
-  Spot,
-  SpotImage,
-  ReviewImage,
-  Review,
-  Booking,
-} = require("../../db/models");
+const { User, Spot, SpotImage, ReviewImage, Review, Booking } = require("../../db/models");
 const { check, query } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Op, Model } = require("sequelize");
@@ -110,7 +102,7 @@ const ValidateQueryFilters = [
   handleValidationErrors,
 ];
 
-//get all spots
+//GET ALL SPOTS
 router.get("/", ValidateQueryFilters, async (req, res) => {
   
   try {
@@ -140,13 +132,12 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
           attributes: ["stars"], 
         },
       ],
-     
     });
+
     const formattedSpots = spots.map((spot) => {
       const totalStars = spot.Reviews.reduce((sum, review) => sum + review.stars, 0);
       const numReviews = spot.Reviews.length;
       const avgStarRating = numReviews > 0 ? parseFloat((totalStars / numReviews).toFixed(1)) : 0;
-
       const previewImage = spot.SpotImages.length > 0 ? spot.SpotImages[0].url : null;
 
       return {
@@ -164,7 +155,7 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
         createdAt: spot.createdAt,
         updatedAt: spot.updatedAt,
         avgStarRating,
-        previewImage
+        previewImage: previewImage,
       };
     });
 
@@ -177,7 +168,8 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
 });
 
 
-//get current users spots
+
+//GET SPOTS FROM CURRENT USER
 router.get("/current", requireAuth, async (req, res) => {
   //used the requuireAuth middleware imported
   try {
@@ -188,7 +180,6 @@ router.get("/current", requireAuth, async (req, res) => {
         {
           model: SpotImage,
           attributes: ["url"],
-          where:{preview:true},
           limit: 1,
         },
         {
@@ -231,7 +222,7 @@ router.get("/current", requireAuth, async (req, res) => {
   }
 });
 
-//getting a spot from an id
+//GET SPOT FROM ID
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -280,7 +271,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//creating a new spot
+//POST NEW SPOT
 router.post("/", requireAuth, validateSpot, async (req, res) => {
   try {
     const {
@@ -317,7 +308,7 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
   }
 });
 
-//add an image to the spot by spot id in params
+//POST IMAGE TO SPOT, BY SPOT-ID FROM PARAMS
 router.post("/:id/images", requireAuth, async (req, res) => {
   try {
     const { id } = req.params;
@@ -348,7 +339,7 @@ router.post("/:id/images", requireAuth, async (req, res) => {
   }
 });
 
-//edit a spot
+//EDIT A SPOT
 router.put("/:id", requireAuth, validateSpot, async (req, res) => {
   try {
     const { id } = req.params;
@@ -390,7 +381,7 @@ router.put("/:id", requireAuth, validateSpot, async (req, res) => {
   }
 });
 
-//delete spot
+//DELETE SPOT
 router.delete("/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
   const userId = req.user.id;
@@ -410,7 +401,7 @@ router.delete("/:id", requireAuth, async (req, res) => {
   }
 });
 
-//get reviews for spot
+//GET REVIEWS FOR SPOT
 router.get("/:spotId/reviews", async (req, res) => {
   const { spotId } = req.params;
   try {
@@ -437,7 +428,7 @@ router.get("/:spotId/reviews", async (req, res) => {
   }
 });
 
-//add review
+//ADD REVIEW
 router.post("/:spotId/reviews", requireAuth, reviewValidation, async (req, res) => { 
   const { spotId } = req.params
   const userId = req.user.id;
@@ -558,7 +549,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res) 
     return res.status(403).json({ message: "Spot is already booked for the selected dates" });
   }
 
-  //Create the new booking
+  //CREATE BOOKING
   const newBooking = await Booking.create({ userId, spotId, startDate, endDate });
   
     return res.status(201).json({

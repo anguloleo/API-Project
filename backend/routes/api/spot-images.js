@@ -1,20 +1,13 @@
 const express = require("express");
 const router = express.Router(); // this is the router object
 const { requireAuth } = require("../../utils/auth.js");
-
-const {
-  User,
-  Spot,
-  SpotImage,
-  ReviewImage,
-  Review,
-  Booking,
-} = require("../../db/models/index.js");
+const { User, Spot, SpotImage, ReviewImage, Review, Booking } = require("../../db/models/index.js");
 const { check, query } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation.js");
 const { Op, Model } = require("sequelize");
 const { reviewValidation } = require("../../utils/validation.js");
 
+//DELETE SPOT-IMAGE
 router.delete("/:imageId", requireAuth, async (req, res) => {
   const { imageId } = req.params;
   const userId = req.user.id;
