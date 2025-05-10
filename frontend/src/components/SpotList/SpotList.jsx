@@ -11,8 +11,8 @@ const SpotList = () => {
     const spots = Object.values(spotsObj);
 
 
-        useEffect(() => {
-            dispatch(fetchSpots());
+    useEffect(() => {
+        dispatch(fetchSpots());
         }, [dispatch]);
 
 
