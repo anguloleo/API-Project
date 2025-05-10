@@ -1,19 +1,12 @@
 const express = require("express");
-const router = express.Router(); // this is the router object
+const router = express.Router(); 
 const { setTokenCookie, requireAuth } = require("../../utils/auth.js");
-const {
-  User,
-  Spot,
-  SpotImage,
-  Review,
-  Booking,
-  ReviewImage,
-} = require("../../db/models");
+const {User, Spot, SpotImage, Review, Booking, ReviewImage } = require("../../db/models");
 const { reviewValidation } = require("../../utils/validation");
 const { Op, Model, where } = require("sequelize");
 
 
-//get all reviews of current user
+//GET ALL REVIEWS FROM USER
 router.get("/current", requireAuth, async (req, res) => {
   try {
     const userId = req.user.id;
@@ -55,7 +48,7 @@ router.get("/current", requireAuth, async (req, res) => {
   }
 });
 
-//add iamge to review
+//ADD IMAGE TO REVIEW
 router.post("/:reviewId/images", requireAuth, async (req, res) => {
   try {
     const { reviewId } = req.params;
@@ -88,7 +81,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
   }
 });
 
-//edit review
+//EDIT REVIEW
 router.put("/:reviewId", requireAuth, reviewValidation, async (req, res) => {
   const { reviewId } = req.params;
   const { review, stars } = req.body;
@@ -114,7 +107,7 @@ router.put("/:reviewId", requireAuth, reviewValidation, async (req, res) => {
   }
 });
 
-//delete review
+//DELETE REVIEW
 router.delete("/:reviewId", requireAuth, async (req, res) => {
   const { reviewId } = req.params;
   const userId = req.user.id;

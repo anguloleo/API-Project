@@ -24,10 +24,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'spotId', 
         onDelete: 'CASCADE',
       });
-
     }
-   
   }
+  
+  //DATA TYPES
   Spot.init({
     ownerId: {
       type: DataTypes.INTEGER,
