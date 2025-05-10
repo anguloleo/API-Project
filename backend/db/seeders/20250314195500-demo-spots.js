@@ -6,6 +6,8 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  
 }
 
+options.tableName = 'Spots';
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     await Spot.bulkCreate([
@@ -45,11 +47,10 @@ module.exports = {
         description: 'A cozy cabin in the mountains for a perfect getaway.',
         price: 175.00
       }
-    ], { validate: true});
+    ], { ...options, validate: true} );
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'Spots';
     return queryInterface.bulkDelete(options, null, {});
   }
 };

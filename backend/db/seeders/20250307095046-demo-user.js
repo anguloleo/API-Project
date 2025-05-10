@@ -8,6 +8,8 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  
 }
 
+options.tableName = 'Users';
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     await User.bulkCreate([
@@ -32,13 +34,13 @@ module.exports = {
         username: 'FakeUser2',
         hashedPassword: bcrypt.hashSync('password3')
       }
-    ], { validate: true });
+    ], { ...options, validate: true });
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'Users';
+    
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
+    return queryInterface.bulkDelete( {...options }, {
       username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
     }, {});
   }
