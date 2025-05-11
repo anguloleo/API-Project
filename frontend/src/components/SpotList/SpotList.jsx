@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpots } from '../../store/spotReducer';
+import { Link } from 'react-router-dom';
 import './SpotList.css';
 
 
@@ -18,9 +19,9 @@ const SpotList = () => {
 
         return (
             <div className='spot-list-container'>
-                <h2>LodgR</h2>
                 <div className='grid'>
                     {spots.map(({ id, name, city, state, price, previewImage, avgStarRating }) => (
+                        <Link to={`/spots/${id}`} key={id} className ='card-link'>
                         <div className='card' key={id} title={name}>
                             <img src={previewImage} className='preview-image' alt={`Preview of spot in ${city}, ${state}`}/>
                             <div className='card-info'>
@@ -34,6 +35,7 @@ const SpotList = () => {
                             <p>${price} night</p>
                             </div>
                         </div>
+                        </Link>
                     ))}
                 </div>
             </div>
