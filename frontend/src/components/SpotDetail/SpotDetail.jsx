@@ -47,7 +47,7 @@ const SpotDetail = () => {
         {/* Reservation Box */}
         <div className="reservation-box">
           <div className="reservation-header">
-            <span className="price">${spot.price.toFixed(2)} <span className="night">night</span></span>
+            <span className="price">${Number(spot.price).toFixed(2)} <span className="night">night</span></span>
              <span className='rating'>
               <i className='fa-solid fa-star'></i>{' '}
                                     {spot.avgStarRating ? Number(spot.avgStarRating).toFixed(1) : 'New'}
