@@ -153,7 +153,7 @@ module.exports = {
         lng: -117.92748962221229,
         name: 'Disney Home',
         description: 'Enjoy this beautiful home by the Disney park.',
-        price: 328.00
+        price: 328.88
       },
             {
         ownerId: 2,

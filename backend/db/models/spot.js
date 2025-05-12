@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
 
       Spot.belongsTo(models.User, {
         foreignKey: 'ownerId',
-        as: 'Owner'
       });
 
       Spot.hasMany(models.SpotImage,{
@@ -92,7 +91,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     price: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull:false,
       validate:{
         min:{

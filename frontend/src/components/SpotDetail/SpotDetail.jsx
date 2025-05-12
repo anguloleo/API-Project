@@ -25,26 +25,34 @@ const SpotDetail = () => {
 
       {/* Image Gallery */}
       <div className="image-gallery">
-        <div className="main-image">Image</div>
+        <div className="main-image">{spot?.SpotImages?.length > 0 && ( <img src={spot.SpotImages.find(img => img.preview)?.url || spot.SpotImages[0].url} alt='Main' style={{width: '100%', height: 'auto'}} />)}</div>
+
         <div className="thumbnail-grid">
-          {[1, 2, 3, 4].map((_, idx) => (
-            <div key={idx} className="thumbnail">Image</div>
+          {spot?.SpotImages?.slice(1, 5).map((image, idx) => (
+            <div key={idx} className='thumbnail'>
+              <img src={image.url} alt={`Thumbnail ${idx + 1}`}/>
+              </div>
           ))}
-        </div>
+          </div>
       </div>
 
       {/* Host and Description */}
       <div className="details-section">
         <div className="host-info">
-          <h2>Hosted by Firstname Lastname</h2>
+          {spot.Owner && (<h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>)}
+          
           <p>{spot.description}</p>
         </div>
 
         {/* Reservation Box */}
         <div className="reservation-box">
           <div className="reservation-header">
-            <span className="price">{spot.price} <span className="night">night</span></span>
-            <span className="reviews">★ ★ ★ ★ ☆ · # reviews</span>
+            <span className="price">${spot.price.toFixed(2)} <span className="night">night</span></span>
+             <span className='rating'>
+              <i className='fa-solid fa-star'></i>{' '}
+                                    {spot.avgStarRating ? Number(spot.avgStarRating).toFixed(1) : 'New'}
+                                </span>
+            <span className="reviews">{spot.numReviews} reviews</span>
           </div>
           <button
             onClick={() => alert("Feature Coming Soon...")}

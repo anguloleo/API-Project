@@ -32,7 +32,7 @@ const SpotList = () => {
                                     {avgStarRating ? Number(avgStarRating).toFixed(1) : 'New'}
                                 </p>
                             </div>
-                            <p>${price} night</p>
+                            <p>${price.toFixed(2)} night</p>
                             </div>
                         </div>
                         </Link>
