@@ -44,6 +44,14 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        spotId: 1,
+        userId: 1,
+        review: "I liked it but I like bananas more!",
+        stars: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ], { ...options });
   },
 

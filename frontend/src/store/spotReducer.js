@@ -1,10 +1,17 @@
 const LOAD_SPOTS = 'spot/loadSpots';
+const LOAD_SPOT = 'spot/loadSpot';
 const ADD_SPOT = 'spot/addSpot';
 
 export const loadSpots = (spots) => {
     return {
         type: LOAD_SPOTS,
         spots
+    };
+};
+export const loadSpot = (spot) => {
+    return{
+        type: LOAD_SPOT,
+        spot
     };
 };
 export const addSpot = (spot) => {
@@ -17,8 +24,14 @@ export const addSpot = (spot) => {
 export const fetchSpots = () => async (dispatch) => {
     const response = await fetch('/api/spots');
     const data = await response.json();
-    console.log("Fetched spots data:", data);
     dispatch(loadSpots(data.Spots));
+}
+export const fetchSpot = (id) => async (dispatch) => {
+    const response = await fetch(`/api/spots/${id}`);
+    if(response.ok) {
+        const data = await response.json();
+        dispatch(loadSpot(data));
+    }
 }
 
 
@@ -32,6 +45,16 @@ const spotReducer = (state = initialState, action) => {
                 normalizedSpots[spot.id] = spot;
             });
             return { ...state, entries: normalizedSpots, isLoading: false };
+        }
+        case LOAD_SPOT: {
+            return {
+                ...state,
+                entries: {
+                    ...state.entries,
+                    [action.spot.id]: action.spot
+                },
+                isLoading: false
+            };
         }
         default: {
             return state;

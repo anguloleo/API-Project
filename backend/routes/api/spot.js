@@ -67,7 +67,7 @@ const validateBooking = [
   handleValidationErrors
 ];
 
-//pagination and filtering
+//Pagination and filtering
 const ValidateQueryFilters = [
   query("page")
     .optional()
@@ -102,6 +102,7 @@ const ValidateQueryFilters = [
   handleValidationErrors,
 ];
 
+
 //GET ALL SPOTS
 router.get("/", ValidateQueryFilters, async (req, res) => {
   
@@ -134,10 +135,14 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
       ],
     });
 
+
     const formattedSpots = spots.map((spot) => {
+      
+      //Calculate avg star rating
       const totalStars = spot.Reviews.reduce((sum, review) => sum + review.stars, 0);
       const numReviews = spot.Reviews.length;
       const avgStarRating = numReviews > 0 ? parseFloat((totalStars / numReviews).toFixed(1)) : 0;
+      //Preview Image
       const previewImage = spot.SpotImages.length > 0 ? spot.SpotImages[0].url : null;
 
       return {
@@ -155,7 +160,7 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
         createdAt: spot.createdAt,
         updatedAt: spot.updatedAt,
         avgStarRating,
-        previewImage: previewImage,
+        previewImage,
       };
     });
 
@@ -171,7 +176,7 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
 
 //GET SPOTS FROM CURRENT USER
 router.get("/current", requireAuth, async (req, res) => {
-  //used the requuireAuth middleware imported
+  
   try {
     const userId = req.user.id;
     const spots = await Spot.findAll({
@@ -222,24 +227,26 @@ router.get("/current", requireAuth, async (req, res) => {
   }
 });
 
+
 //GET SPOT FROM ID
 router.get("/:id", async (req, res) => {
+ 
   try {
     const { id } = req.params;
+    //Calc avg star rating
     const numReviews = await Review.count({ where: { spotId: id } });
     const totalStars = await Review.sum("stars", { where: { spotId: id } });
     const avgStarRating = numReviews > 0 ? parseFloat((totalStars / numReviews).toFixed(1)) : 0;
-    //use findByPk and get it from the req.params
+    
+    //Create spot object
     const spot = await Spot.findByPk(id, {
       include: [
         {
           model: SpotImage,
           attributes: ["id", "url", "preview",],
-          limit: 1,
         },
         {
           model: User, 
-          as:"Owner",
           attributes: ["id", "firstName", "lastName"],
         },
       ],
@@ -263,7 +270,7 @@ router.get("/:id", async (req, res) => {
       numReviews,
       avgStarRating,
       SpotImages: spot.SpotImages,
-      Owner: spot.Owner,
+      Owner: spot.User,
     });
   } catch (error) {
     console.error(error);

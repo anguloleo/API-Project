@@ -38,3 +38,14 @@
 .card-info p:last-child {
   font-weight: bold;
 }
+
+.location-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rating {
+    margin-left: auto;
+    font-weight: bold;
+}
