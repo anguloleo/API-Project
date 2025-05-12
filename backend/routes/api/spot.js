@@ -138,10 +138,10 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
 
     const formattedSpots = spots.map((spot) => {
       
-      //Calculate avg star rating
+      //AVG STAR RATING
       const totalStars = spot.Reviews.reduce((sum, review) => sum + review.stars, 0);
       const numReviews = spot.Reviews.length;
-      const avgStarRating = numReviews > 0 ? parseFloat((totalStars / numReviews).toFixed(1)) : 0;
+      const avgStarRating = numReviews > 0 ? totalStars / numReviews : 0;
       //Preview Image
       const previewImage = spot.SpotImages.length > 0 ? spot.SpotImages[0].url : null;
 
@@ -228,7 +228,7 @@ router.get("/current", requireAuth, async (req, res) => {
 });
 
 
-//GET SPOT FROM ID
+//GET SPOT FROM SPOT-ID
 router.get("/:id", async (req, res) => {
  
   try {
