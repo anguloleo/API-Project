@@ -138,7 +138,7 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
 
     const formattedSpots = spots.map((spot) => {
       
-      //AVG STAR RATING
+      //avg star rating
       const totalStars = spot.Reviews.reduce((sum, review) => sum + review.stars, 0);
       const numReviews = spot.Reviews.length;
       const avgStarRating = numReviews > 0 ? totalStars / numReviews : 0;
