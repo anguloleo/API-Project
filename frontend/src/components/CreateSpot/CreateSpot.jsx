@@ -62,6 +62,7 @@ const CreateSpot = () => {
     return(
         <div className="inputBox">
         <h1>Create a new Spot</h1>
+        <h1> Yes please</h1>
 
         {/* FORM BEGINS*/}
         <form onSubmit={handleSubmit}>
