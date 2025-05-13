@@ -1,0 +1,166 @@
+/* CreateSpot.css */
+
+/* Main container */
+.inputBox {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+p {
+  margin-bottom: 15px;
+  color: #484848;
+  font-size: 14px;
+}
+
+/* Form sections */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form section styles */
+.form-section {
+  margin-bottom: 30px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+}
+
+/* Form field styles */
+input, textarea {
+  margin-bottom: 15px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* City and State container for side-by-side layout */
+.location-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.location-row input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+/* Latitude and Longitude container */
+.coordinates-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.coordinates-row input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.optional-marker {
+  background-color: #388e3c;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.optional-info {
+  background-color: #b71c1c;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  max-width: 150px;
+}
+
+/* Price input with dollar sign */
+.price-container {
+  position: relative;
+}
+
+.price-container span {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  font-weight: bold;
+}
+
+.price-container input {
+  padding-left: 25px;
+}
+
+/* Submit button */
+button[type="submit"] {
+  background-color: #ff385c;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+  align-self: center;
+}
+
+button[type="submit"]:hover {
+  background-color: #e61e4d;
+}
+
+/* Show spot details button */
+.show-details {
+  display: inline-block;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 4px;
+  color: #484848;
+  font-size: 14px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Section titles */
+.section-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: #484848;
+  margin-bottom: 15px;
+}

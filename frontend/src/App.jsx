@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import SpotList from './components/SpotList';
 import SpotDetail from './components/SpotDetail';
+import CreateSpot from './components/CreateSpot';
 import * as sessionActions from './store/session';
 
 
@@ -30,9 +31,10 @@ function Layout() {
           onClick={() => window.location.href = '/'}
         />
         <div>
-    <Navigation isLoaded={isLoaded} />
-    </div>
-      </header>
+          <Navigation isLoaded={isLoaded} />
+        </div>
+    </header>
+
       <main className='site-main'>
         {isLoaded && <Outlet />}
       </main>
@@ -41,22 +43,22 @@ function Layout() {
 }
 
 
-//CREATEBROWSERROUTER()
+//BROWSER ROUTER
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       {
         path: '/',
-        element: (
-        <>
-        <SpotList />
-        </>
-        )
+        element: <SpotList />
       },
       {
         path: '/spots/:id',
         element: <SpotDetail />
+      },
+      {
+        path: '/spots/new',
+        element: <CreateSpot />
       }
     ]
   }
