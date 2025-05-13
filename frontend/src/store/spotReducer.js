@@ -33,6 +33,19 @@ export const fetchSpot = (id) => async (dispatch) => {
         dispatch(loadSpot(data));
     }
 }
+export const createSpot = (payload) => async (dispatch) => {
+    const response = await fetch('/api/spots', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+    });
+
+    if(response.ok) {
+        const spot = await response.json();
+        dispatch(addSpot(spot));
+        return spot;
+    }
+};
 
 
 const initialState = { entries: {}, isLoading: true };
@@ -55,6 +68,10 @@ const spotReducer = (state = initialState, action) => {
                 },
                 isLoading: false
             };
+        }
+        case ADD_SPOT: {
+            return {
+                ...state, entries: {...state.entries, [action.spot.id]: action.spot}};
         }
         default: {
             return state;
