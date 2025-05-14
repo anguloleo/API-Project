@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 const LOAD_SPOTS = 'spot/loadSpots';
 const LOAD_SPOT = 'spot/loadSpot';
 const ADD_SPOT = 'spot/addSpot';
@@ -34,7 +36,7 @@ export const fetchSpot = (id) => async (dispatch) => {
     }
 }
 export const createSpot = (payload) => async (dispatch) => {
-    const response = await fetch('/api/spots', {
+    const response = await csrfFetch('/api/spots', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -44,6 +46,9 @@ export const createSpot = (payload) => async (dispatch) => {
         const spot = await response.json();
         dispatch(addSpot(spot));
         return spot;
+    } else {
+        const error = await response.json();
+        throw error;
     }
 };
 

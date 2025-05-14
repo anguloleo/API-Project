@@ -1,0 +1,39 @@
+.review-section {
+  padding: 1rem 0;
+  border-top: 1px solid #ccc;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.review-box {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.review-box h3 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.review-date {
+  color: gray;
+  margin: 0.3rem 0;
+}
+
+.post-review-btn {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #ff5a5f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
