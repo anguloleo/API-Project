@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpot } from '../../store/spotReducer';
 import { useParams } from 'react-router-dom';
+import  ReviewList  from '../ReviewList';
 import './SpotDetail.css';
 
 
@@ -62,6 +63,7 @@ const SpotDetail = () => {
           </button>
         </div>
       </div>
+      <ReviewList spotId={spot.id} />
     </div>
   );
 };

@@ -1,11 +1,14 @@
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {createSpot} from '../../store/spotReducer';
+import {useNavigate} from 'react-router-dom';
+import { csrfFetch } from '../../store/csrf';
 import './CreateSpot.css';
 
 
 const CreateSpot = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [country, setCountry] = useState('');
     const [address, setAddress] = useState('');
@@ -21,10 +24,29 @@ const CreateSpot = () => {
     const [image3, setImage3] = useState('');
     const [image4, setImage4] = useState('');
     const [image5, setImage5] = useState('');
+    const [errors, setErrors] = useState({});
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const newErrors = {};
+
+    if (!country) newErrors.country = 'Country is required';
+    if (!address) newErrors.address = 'Address is required';
+    if (!city) newErrors.city = 'City is required';
+    if (!state) newErrors.state = 'State is required';
+    if (!description || description.length < 30)
+        newErrors.description = 'Description needs 30 or more characters';
+    if (!name) newErrors.name = 'Name is required';
+    if (!price) newErrors.price = 'Price per night is required';
+    if (!image1) newErrors.image1 = 'Preview image is required';
+
+    if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+    }
+
         const newSpot = {
             country,
             address,
@@ -37,9 +59,35 @@ const CreateSpot = () => {
             price: parseFloat(price),
         };
 
-        const spot = await dispatch(createSpot(newSpot));
-        if(spot) reset();
-    };
+        try{
+            const createdSpot = await dispatch(createSpot(newSpot));
+
+            if(createdSpot?.id) {
+                const imageUrls = [
+                    {url: image1, preview: true },
+                    ...[image2, image3, image4, image5]
+                    .filter(Boolean)
+                    .map(url => ({ url, preview: false}))
+                ];
+
+                await Promise.all(
+                    imageUrls.map(img =>
+                        csrfFetch(`/api/spots/${createdSpot.id}/images`, {
+                            method: 'POST',
+                            body: JSON.stringify(img),
+                        })
+                    )
+                );
+            
+        
+        
+        reset();
+        navigate(`/spots/${createdSpot.id}`);
+    }
+} catch (err) {
+    console.error("Error creating spot or uploading images:", err);
+}
+};
 
     const reset = () => {
             setCountry('');
@@ -60,9 +108,9 @@ const CreateSpot = () => {
 
 
     return(
+
         <div className="inputBox">
         <h1>Create a new Spot</h1>
-        <h1> Yes please</h1>
 
         {/* FORM BEGINS*/}
         <form onSubmit={handleSubmit}>
@@ -74,10 +122,12 @@ const CreateSpot = () => {
         {/*COUNTRY*/}
         <label>Country</label>
         <input value={country} onChange={e => setCountry(e.target.value)} placeholder="Country" required />
+        {errors.country && <p className='error'>{errors.country}</p>}
         
         {/*ADDRESS*/}
         <label>Street Address</label>
         <input value={address} onChange={e => setAddress(e.target.value)} placeholder="Address" required />
+          {errors.address && <p className='error'>{errors.address}</p>}
         </div>
         
         <div className='location-row'>

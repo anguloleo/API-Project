@@ -26,10 +26,12 @@ const validateSpot = [
     .withMessage("Valid country required."),
 
   check("lat")
+  .optional({ checkFalsy: true })
     .isFloat({ min: -90, max: 90 })
     .withMessage("Latitude must be an number between -90 and 90."),
 
   check("lng")
+  .optional({ checkFalsy: true })
     .isFloat({ min: -180, max: 180 })
     .withMessage("Longitude must be an number between -180 and 180."),
 
@@ -163,7 +165,6 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
         previewImage,
       };
     });
-
 
     return res.status(200).json({ Spots: formattedSpots });
   } catch (error) {
@@ -411,8 +412,10 @@ router.delete("/:id", requireAuth, async (req, res) => {
 //GET REVIEWS FOR SPOT
 router.get("/:spotId/reviews", async (req, res) => {
   const { spotId } = req.params;
+  
   try {
     const spot = await Spot.findByPk(spotId);
+    
     if (!spot) return res.status(404).json({ message: "Spot could not be found" });
 
     const spotReviews = await Review.findAll({
