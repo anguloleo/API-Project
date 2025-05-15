@@ -38,17 +38,17 @@ export const fetchReview = (id) => async (dispatch) => {
         dispatch(loadReview(data));
     }
 }
-export const createReview = (payload) => async (dispatch) => {
-    const response = await csrfFetch('/api/reviews', {
+export const createReview = ({review, stars, spotId }) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ review, stars}),
     });
 
     if(response.ok) {
-        const review = await response.json();
-        dispatch(addReview(review));
-        return review;
+        const data = await response.json();
+        dispatch(addReview(data));
+        return data;
     } else {
         const error = await response.json();
         throw error;

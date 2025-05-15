@@ -409,6 +409,7 @@ router.delete("/:id", requireAuth, async (req, res) => {
   }
 });
 
+
 //GET REVIEWS FOR SPOT
 router.get("/:spotId/reviews", async (req, res) => {
   const { spotId } = req.params;
@@ -438,26 +439,28 @@ router.get("/:spotId/reviews", async (req, res) => {
   }
 });
 
+
 //ADD REVIEW
 router.post("/:spotId/reviews", requireAuth, reviewValidation, async (req, res) => { 
+  
   const { spotId } = req.params
   const userId = req.user.id;
   const { review, stars } = req.body
+  
   try{ 
     const spot = await Spot.findByPk(spotId); 
     if(!spot) return res.status(404).json({ message: "Spot not found" });
+    
     if (spot.ownerId=== userId) {
       return res.status(403).json({ message: "You cannot review your own spot." });
     }
+
     const existingReview = await Review.findOne({where: { spotId, userId}});
+   
     if(existingReview)return res.status(500).json({message:"User already has a review on this spot."})
     
       const newReview = await Review.create({
-    spotId,
-    userId,
-    review,
-    stars
-  });
+    spotId, userId, review, stars });
 
   return res.status(201).json(newReview)
   }catch(error){
