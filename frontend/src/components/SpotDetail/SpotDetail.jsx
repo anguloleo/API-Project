@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpot } from '../../store/spotReducer';
+import { fetchReviews } from '../../store/reviewReducer';
 import { useParams } from 'react-router-dom';
 import  ReviewList  from '../ReviewList';
 import './SpotDetail.css';
@@ -12,8 +13,14 @@ const SpotDetail = () => {
     const {id} = useParams();
     const spot = useSelector(state => state.spotState.entries[id]);
 
+    const refreshData = () => {
+      dispatch(fetchSpot(id));
+      dispatch(fetchReviews(id));
+    };
+
     useEffect(() => {
         dispatch(fetchSpot(id));
+        dispatch(fetchReviews(id));
     }, [dispatch, id]);
 
     if(!spot) return <p>Loading...</p>;
@@ -63,7 +70,7 @@ const SpotDetail = () => {
           </button>
         </div>
       </div>
-      <ReviewList spotId={spot.id} />
+      <ReviewList spotId={spot.id} refreshData={refreshData} />
     </div>
   );
 };

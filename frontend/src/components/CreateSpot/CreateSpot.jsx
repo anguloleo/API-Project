@@ -106,10 +106,9 @@ const CreateSpot = () => {
             setImage5('');
     };
 
-
     return(
-
         <div className="inputBox">
+
         <h1>Create a new Spot</h1>
 
         {/* FORM BEGINS*/}
@@ -160,6 +159,7 @@ const CreateSpot = () => {
             <h2>Describe you place to guests</h2>
             <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood</p>
             <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Please write at least 30 characters" required />
+            {errors.description && <p className='error'>{errors.description}</p>}
         </div>
         
         {/*NAME*/}
@@ -167,6 +167,7 @@ const CreateSpot = () => {
             <h2>Create a title for your spot</h2>
             <p>Catch guest&apos;s attention with a spot title that highlights what makes your place special.</p>
             <input value={name} onChange={e => setName(e.target.value)} placeholder="Name of your spot" required />
+            {errors.name && <p className='error'>{errors.name}</p>}
         </div>
         
         {/*PRICE*/}
@@ -176,6 +177,7 @@ const CreateSpot = () => {
             <div className="price-container">
             <span>$</span>
             <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="Price per night (USD)" required />
+            {errors.price && <p className='error'>{errors.price}</p>}
         </div>
         </div>
        
@@ -185,6 +187,7 @@ const CreateSpot = () => {
             <p>Submit a link to at least one photo to publish your spot.</p>
         
         <input value={image1} onChange={e => setImage1(e.target.value)} placeholder="Preview Image URL" required />
+        {errors.image1 && <p className='error'>{errors.image1}</p>}
         <input value={image2} onChange={e => setImage2(e.target.value)} placeholder="Image URL" />
         <input value={image3} onChange={e => setImage3(e.target.value)} placeholder="Image URL" />
         <input value={image4} onChange={e => setImage4(e.target.value)} placeholder="Image URL" />
