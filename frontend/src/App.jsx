@@ -6,6 +6,7 @@ import SpotList from './components/SpotList';
 import SpotDetail from './components/SpotDetail';
 import CreateSpot from './components/CreateSpot';
 import ManageSpots from './components/ManageSpots';
+import UpdateSpot from './components/UpdateSpot';
 import * as sessionActions from './store/session';
 
 
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: '/spots/manage',
         element: <ManageSpots />
+      },
+      {
+        path: '/spots/:id/edit',
+        element: <UpdateSpot />
       }
     ]
   }

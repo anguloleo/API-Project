@@ -369,7 +369,6 @@ router.put("/:id", requireAuth, validateSpot, async (req, res) => {
     spot.description = description;
     spot.price = price;
 
-    //going with the .save instead of .update
     await spot.save();
 
     return res.status(200).json(spot);

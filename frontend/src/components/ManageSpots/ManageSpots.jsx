@@ -22,7 +22,7 @@ const ManageSpots = () => {
     };
 
     const handleDelete = (spotId) => {
-        // You can add confirmation or modal here
+        
         console.log('Delete spot', spotId);
     };
 
@@ -57,8 +57,8 @@ const ManageSpots = () => {
 
 
                         <div className='button-row'>
-                            <button onClick={(e) => {e.stopPropagation(); handleUpdate(id); }}>Update</button>
-                            <button onClick={(e) => {e.stopPropagation();handleDelete(id); }}>Delete</button>
+                            <button onClick={() => handleUpdate(id) }>Update</button>
+                            <button onClick={() => handleDelete(id)}>Delete</button>
                         </div>
                     </div>
                 ))}
