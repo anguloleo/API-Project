@@ -120,32 +120,22 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
     if (state) where.state = state;
     
     const spots = await Spot.findAll({
-      where,
-      limit,
-      offset,
       include: [
-        {
-          model: SpotImage,
-          attributes: ["url"],
-          where: { preview: true },
-          limit: 1,
-        },
-        {
-          model: Review,
-          attributes: ["stars"], 
-        },
-      ],
+        { model: Review },
+        { model: SpotImage},
+      ]
     });
 
 
-    const formattedSpots = spots.map((spot) => {
+    const formattedSpots = spots.map(spot => {
       
-      //avg star rating
-      const totalStars = spot.Reviews.reduce((sum, review) => sum + review.stars, 0);
-      const numReviews = spot.Reviews.length;
-      const avgStarRating = numReviews > 0 ? totalStars / numReviews : 0;
+       //Avg star rating
+      const reviews = spot.Reviews || [];
+      const totalStars = reviews.reduce((sum, r) => sum + r.stars, 0);
+      const avgStarRating = reviews.length ? totalStars / reviews.length : null;
+      
       //Preview Image
-      const previewImage = spot.SpotImages.length > 0 ? spot.SpotImages[0].url : null;
+      const previewImage = spot.SpotImages?.[0]?.url || null;
 
       return {
         id: spot.id,
