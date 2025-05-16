@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchReviews } from '../../store/reviewReducer';
 import { useModal } from '../../context/Modal';
 import PostReviewModal from '../PostReviewModal';
+import DeleteReviewModal from '../DeleteReviewModal';
 import './ReviewList.css';
 
 
@@ -41,12 +42,19 @@ const ReviewList = ({ spotId, refreshData }) => {
 
                 {/* REVIEWS */}
                 {reviews.length ? (
-                    reviews.map(({ id, createdAt, review, User }) => (
+                    reviews.map(({ id, createdAt, review, User, userId }) => (
                                 <div className='review-box' key={id}>
                                 <h3>{User?.firstName}</h3>
                                 <p className='review-date'>
                                 {new Date(createdAt).toLocaleDateString('en-US', {year: 'numeric', month: 'long' })} </p>
                                 <p>{review}</p>
+
+                                {currentUser?.id === userId && (
+                                    <button className='delete-review-btn' onClick={() => setModalContent(
+                                        <DeleteReviewModal reviewId={id} refreshData={refreshData} />
+                                    )}
+                                    >Delete</button>
+                                )}
                                 </div>
                     ))
                 ) : currentUser && currentUser.id !== spot?.ownerId ? (

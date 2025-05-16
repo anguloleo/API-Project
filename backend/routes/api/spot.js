@@ -132,7 +132,7 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
        //Avg star rating
       const reviews = spot.Reviews || [];
       const totalStars = reviews.reduce((sum, r) => sum + r.stars, 0);
-      const avgStarRating = reviews.length ? totalStars / reviews.length : null;
+      const avgStarRating = reviews.length ? parseFloat((totalStars / reviews.length).toFixed(1)) : null;
       
       //Preview Image
       const previewImage = spot.SpotImages?.[0]?.url || null;

@@ -2,6 +2,10 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpots } from '../../store/spotReducer';
 import { Link, useNavigate } from 'react-router-dom';
+import OpenModalButton from '../OpenModalButton';
+import DeleteSpotModal from '../DeleteSpotModal';
+import { removeSpot } from '../../store/spotReducer';
+import { useModal } from '../../context/Modal';
 import './ManageSpots.css';
 
 const ManageSpots = () => {
@@ -10,6 +14,9 @@ const ManageSpots = () => {
     const spotsObj = useSelector(state => state.spotState.entries);
     const currentUser = useSelector(state => state.session.user);
     const spots = Object.values(spotsObj);
+    const { setModalContent } = useModal();
+
+ 
 
     useEffect(() => {
         dispatch(fetchSpots());
@@ -21,10 +28,6 @@ const ManageSpots = () => {
         navigate(`/spots/${spotId}/edit`); 
     };
 
-    const handleDelete = (spotId) => {
-        
-        console.log('Delete spot', spotId);
-    };
 
     return (
         <div className='manage-spots'>
@@ -58,13 +61,23 @@ const ManageSpots = () => {
 
                         <div className='button-row'>
                             <button onClick={() => handleUpdate(id) }>Update</button>
-                            <button onClick={() => handleDelete(id)}>Delete</button>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-};
+                            <OpenModalButton buttonText='Delete' modalComponent={
+                                <DeleteSpotModal
+                                spotId={id}
+                                onClose={() => setModalContent(null)}
+                                onConfirm={async (spotId) => {
+                                    await dispatch(removeSpot(spotId));
+                                    setModalContent(null);
+                                }}
+                             />
+                        }
+/>
+</div>
+</div>
+))}
+</div>
+</div>
+                );
+            };
 
 export default ManageSpots;

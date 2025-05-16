@@ -1,0 +1,49 @@
+.delete-confirm-modal {
+    text-align: center;
+    padding: 24px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    margin: auto;
+}
+
+.delete-confirm-modal h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.delete-confirm-modal p {
+    font-size: 16px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.delete-confirm-modal button {
+    padding: 10px 20px;
+    margin: 8px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.delete-confirm-modal button.red-btn {
+    background-color: #d32f2f;
+    color: white;
+}
+
+.delete-confirm-modal button.red-btn:hover {
+    background-color: #b71c1c;
+}
+
+.delete-confirm-modal button.grey-btn {
+    background-color: #555;
+    color: white;
+}
+
+.delete-confirm-modal button.grey-btn:hover {
+    background-color: #333;
+}
