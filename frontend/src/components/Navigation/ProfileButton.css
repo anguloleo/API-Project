@@ -51,3 +51,38 @@
   background-color: #ddd;
 }
  
+.dropdown-login-signup {
+  padding: 5px 10px;
+}
+
+.dropdown-login-signup button {
+  width: 100%;
+  background: #f0f0f0;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-login-signup button:hover {
+  background-color: #e0e0e0;
+}
+
+.dropdown-modal-button {
+  width: 100%;
+  background: #f0f0f0;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: left;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.dropdown-modal-button:hover {
+  background-color: #e0e0e0;
+  transform: translateX(2px);
+}
