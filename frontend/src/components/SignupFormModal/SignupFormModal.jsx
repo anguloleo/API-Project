@@ -4,7 +4,9 @@ import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
 
+
 function SignupFormModal() {
+
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -30,9 +32,15 @@ function SignupFormModal() {
       )
       .then(closeModal)
       .catch(async (res) => {
+        try {
         const data = await res.json();
         if (data?.errors) {
           setErrors(data.errors);
+        } else {
+          setErrors({ general: 'An unexpected error occurred. Please try again.'});
+        }
+      } catch {
+        setErrors({ general: 'An unexpected error occurred. Please try again.'});
         }
       });
     }
@@ -105,7 +113,19 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && (<p>{errors.confirmPassword}</p>)}
-        <button type="submit">Sign Up</button>
+        <button type="submit" 
+    disabled={
+    !email ||
+    !username ||
+    !firstName ||
+    !lastName ||
+    !password ||
+    !confirmPassword ||
+    username.length < 4 ||
+    password.length < 6
+  }>
+    Sign Up
+    </button>
       </form>
     </>
   );
