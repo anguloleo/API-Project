@@ -122,8 +122,10 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
     const spots = await Spot.findAll({
       include: [
         { model: Review },
-        { model: SpotImage},
-      ]
+        { model: SpotImage,
+          where: {preview: true},
+          attributes: ['url'],
+          required: false}]
     });
 
 

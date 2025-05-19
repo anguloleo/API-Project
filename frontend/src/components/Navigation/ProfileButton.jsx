@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaBars, FaUserCircle } from 'react-icons/fa';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
@@ -8,7 +8,10 @@ import SignupFormModal from '../SignupFormModal';
 import { useNavigate } from 'react-router-dom';
 import './ProfileButton.css';
 
+
+
 function ProfileButton({ user }) {
+  
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -46,8 +49,9 @@ function ProfileButton({ user }) {
 
   return (
     <div className='profile-button-wrapper'>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
+      <button onClick={toggleMenu} className='profile-menu-button'>
+        <FaBars className='menu-icon' />
+        <FaUserCircle className="user-icon" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
