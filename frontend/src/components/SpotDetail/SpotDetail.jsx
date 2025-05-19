@@ -33,15 +33,21 @@ const SpotDetail = () => {
 
       {/* Image Gallery */}
       <div className="image-gallery">
-        <div className="main-image">{spot?.SpotImages?.length > 0 && ( <img src={spot.SpotImages.find(img => img.preview)?.url || spot.SpotImages[0].url} alt='Main' style={{width: '100%', height: 'auto'}} />)}</div>
+        
+          {spot?.SpotImages?.length > 0 && ( 
+            <>
+            <div className="main-image">
+            <img 
+            src={spot.SpotImages.find(img => img.preview)?.url || spot.SpotImages[0].url} alt='Main'  />
+        </div>
 
-        <div className="thumbnail-grid">
-          {spot?.SpotImages?.slice(1, 5).map((image, idx) => (
+          {spot?.SpotImages.filter(img => !img.preview).slice(0, 4).map((image, idx) => (
             <div key={idx} className='thumbnail'>
               <img src={image.url} alt={`Thumbnail ${idx + 1}`}/>
               </div>
           ))}
-          </div>
+          </>
+          )}
       </div>
 
       {/* Host and Description */}

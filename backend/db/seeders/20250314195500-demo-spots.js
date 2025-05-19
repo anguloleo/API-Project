@@ -48,7 +48,7 @@ module.exports = {
         price: 175.00
       },
             {
-        ownerId: 1,
+        ownerId: 4,
         address: '4560 W Beverly Blvd',
         city: 'Los Angeles',
         state: 'CA',
@@ -60,7 +60,7 @@ module.exports = {
         price: 650.00
       },
             {
-        ownerId: 1,
+        ownerId: 5,
         address: '2866 E Livmore Ave',
         city: 'Palm Springs',
         state: 'CA',
@@ -72,7 +72,7 @@ module.exports = {
         price: 123.00
       },
             {
-        ownerId: 2,
+        ownerId: 6,
         address: '42452 Holiday Ln',
         city: 'Big Bear Lake',
         state: 'CA',
@@ -84,7 +84,7 @@ module.exports = {
         price: 358.00
       },
             {
-        ownerId: 2,
+        ownerId: 7,
         address: '1 Zion Canyon Scenic Dr',
         city: 'Springdale',
         state: 'UT',
@@ -96,7 +96,7 @@ module.exports = {
         price: 170.00
       },
             {
-        ownerId: 3,
+        ownerId: 1,
         address: '38 Hansen St',
         city: 'Orick',
         state: 'CA',
@@ -108,7 +108,7 @@ module.exports = {
         price: 166.00
       },
             {
-        ownerId: 1,
+        ownerId: 2,
         address: '638 Laine St',
         city: 'Monterey',
         state: 'CA',
@@ -120,7 +120,7 @@ module.exports = {
         price: 189.00
       },
             {
-        ownerId: 1,
+        ownerId: 3,
         address: '2461 Island Ave',
         city: 'San Diego',
         state: 'CA',
@@ -132,7 +132,7 @@ module.exports = {
         price: 96.00
       },
             {
-        ownerId: 3,
+        ownerId: 4,
         address: '2521 Calle Del Oro',
         city: 'La Jolla',
         state: 'CA',
@@ -144,7 +144,7 @@ module.exports = {
         price: 150.00
       },
             {
-        ownerId: 2,
+        ownerId: 5,
         address: '1195 W Vermont Ave',
         city: 'Anaheim',
         state: 'CA',
@@ -156,7 +156,7 @@ module.exports = {
         price: 328.88
       },
             {
-        ownerId: 2,
+        ownerId: 6,
         address: '6248 De Longpre Ave',
         city: 'Los Angeles',
         state: 'CA',
