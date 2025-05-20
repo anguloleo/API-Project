@@ -155,7 +155,9 @@ const UpdateSpot = () => {
             <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
             <div className="price-container">
             <span>$</span>
-            <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="Price per night (USD)" />
+            <input type="number" step='0.01' value={price} onChange={e => setPrice(e.target.value)}
+            onBlur={() => setPrice(parseFloat(price).toFixed(2))} 
+            placeholder="Price per night (USD)" />
             </div>
             {errors.price && <p className='error'>{errors.price}</p>}
         </div>
